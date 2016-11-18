@@ -10,3 +10,14 @@
     }
   }
 }
+.md-select.in-mobile {
+  .select-wrapper {
+    border-bottom: 1px solid #9e9e9e;
+    overflow-x: hidden;
+  }
+  select {
+    display: inherit;
+    width: 110%;
+    background: transparent;
+  }
+}

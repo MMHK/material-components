@@ -103,6 +103,10 @@ export default class Card {
         return 'actions' in this._slotContents;
     }
 
+    get closeSlot() {
+        return 'close' in this._slotContents;
+    }
+
     get revealSlot() {
         return 'reveal' in this._slotContents;
     }

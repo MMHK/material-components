@@ -19,6 +19,14 @@ if (ENV === 'dist') {
         library: `${pkg.library}`,
         libraryTarget: 'umd'
     };
+    config.externals = {
+        // require("vue") is external and available
+        //  on the global var Vue
+        'vue': 'vue',
+        // require("vue-router") is external and available
+        //  on the global var VueRouter
+        'vue-router': 'vue-router'
+    };
     config.plugins.push(new ExtractTextPlugin(`./dist/${pkg.name}.css`))
 }
 else {

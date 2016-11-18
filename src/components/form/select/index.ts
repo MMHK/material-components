@@ -1,5 +1,6 @@
 import Component from 'vue-class-component';
 import mdDropdownList from '../../dropdown-list';
+import SelectOption from '../option'
 
 import inputMixin from '../../../mixins/input';
 import clickAway from '../../../directives/click-away';
@@ -80,12 +81,14 @@ export default class SelectField {
     }
 
     compiled() {
-        var options = this.$getAllChildren().filter((c: any) => {return 'SelectOption' == c.$options.name});
+        var options = this.$getAllChildren().filter((c: any) => {return c instanceof SelectOption});
         for (var i = 0; i < options.length; i++) {
             var option = options[i];
             var opt: any = this.createOption(option);
             Vue.set(this.options, opt.value, opt);
         }
+        console.log(options);
+        console.log(this.$getAllChildren());
     }
 
     ready() {
@@ -106,6 +109,14 @@ export default class SelectField {
             value: value,
             disabled: disabled
         };
+    }
+
+    get inMobileSingeView() {
+        return !this.multiple && this.supportTouch;
+    }
+
+    get supportTouch() {
+        return ("ontouchstart" in window || navigator.msMaxTouchPoints);
     }
 
     get multiple() {

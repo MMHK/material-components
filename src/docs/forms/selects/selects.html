@@ -1,12 +1,12 @@
 <div class="row demo">
     <form class="col s12">
         <div class="row">
-            <div class="output col s6">
+            <div class="output col s12">
                 Selected: {{value}}
             </div>
         </div>
         <div class="row">
-            <md-select :value.sync="value" name="select" class="col s6">
+            <md-select :value.sync="value" name="select" class="col s12">
                 <md-option value="" disabled>Choose your option</md-option>
                 <md-option value="1">Option 1</md-option>
                 <md-option value="2">Option 2</md-option>
@@ -20,12 +20,12 @@
 <div class="row demo">
     <form class="col s12">
         <div class="row">
-            <div class="output col s6">
+            <div class="output col s12">
                 Selected: {{multipleValue | json}}
             </div>
         </div>
         <div class="row">
-            <md-select :value.sync="multipleValue" class="col s6">
+            <md-select :value.sync="multipleValue" class="col s12">
                 <md-option value="" disabled>Choose your option</md-option>
                 <md-option value="1">Option 1</md-option>
                 <md-option value="2">Option 2</md-option>
@@ -39,12 +39,12 @@
 <div class="row demo">
     <form class="col s12">
         <div class="row">
-            <div class="output col s6">
+            <div class="output col s12">
                 Selected: {{groupsValue}}
             </div>
         </div>
         <div class="row">
-            <md-select :value.sync="groupsValue" class="col s6">
+            <md-select :value.sync="groupsValue" class="col s12">
                 <md-optgroup label="team 1">
                     <md-option value="1">Option 1</md-option>
                     <md-option value="2">Option 2</md-option>

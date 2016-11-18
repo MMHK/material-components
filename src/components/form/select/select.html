@@ -1,13 +1,16 @@
-<div class="md-select input-field" v-click-away="close">
+<div class="md-select input-field {{inMobileSingeView ? 'in-mobile' : ''}}" v-click-away="close">
     <i v-if="hasSlot('icon-name')" class="material-icons prefix">
         <slot name="icon-name"></slot>
     </i>
     <div class="select-wrapper">
-        <span class="caret">▼</span>
-        <input @click="open" readonly="readonly" :value="valueContent" :name="name"
+        <span v-if="!hasSlot('arrow')" class="caret">▼</span>
+        <span v-if="hasSlot('arrow')" class="caret">
+            <slot name="arrow"></slot>
+        </span>
+        <input v-if="!inMobileSingeView" @click="open" readonly="readonly" :value="valueContent" :name="name"
                type="text" class="select-dropdown">
 
-        <md-dropdown-list :active="active" class="select-dropdown">
+        <md-dropdown-list v-show="!inMobileSingeView" :active="active" class="select-dropdown">
             <slot></slot>
         </md-dropdown-list>
 

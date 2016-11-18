@@ -25,7 +25,10 @@
         </slot>
 
         <div v-if="revealSlot" v-el:reveal class="card-reveal">
-            <i v-el:reveal-close class="material-icons right close">close</i>
+            <i v-el:reveal-close class="material-icons right close">
+                <slot v-if="closeSlot" name="close"></slot>
+                {{ !closeSlot ? 'Close' : ''}}
+            </i>
             <slot name="reveal"></slot>
         </div>
     </slot>

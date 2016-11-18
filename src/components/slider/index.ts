@@ -11,7 +11,7 @@ import Component from 'vue-class-component';
     template: require('./slider.html')
 })
 export default class Slider {
-    private $broadcast: any;
+    private $broadcast: any;1
     private $children: any;
 
     private activeItem: number;
