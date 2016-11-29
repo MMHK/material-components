@@ -1,15 +1,11 @@
-# material-components
+# material-components fork for MixMedia
 
-## [Demo + docs](http://appcomponents.org/material-components/)
+## [Demo + docs](https://mmhk.github.io/material-components/#!/)
 
 ## About
 
 * *No jQuery*
 * uses [materializecss.com](http://materializecss.com)
-
-### NPM
-
-* https://www.npmjs.com/package/vue-material-components
 
 ## Usage
 
@@ -40,12 +36,4 @@ Vue.use(VueMaterialComponents)
 
 * **0.3.0** md-btn component
 
-
-## Issues
-
-Please make sure to read the [Issue Reporting Checklist](https://github.com/vuejs/vue/blob/dev/CONTRIBUTING.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
-
-
-## Contribution
-
-Please make sure to read the [Contributing Guide](https://github.com/vuejs/vue/blob/dev/CONTRIBUTING.md) before making a pull request.
+* 根据MM的实际使用情况，裁剪了部分功能并。
