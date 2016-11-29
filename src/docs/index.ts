@@ -8,10 +8,10 @@ var VueRouter: any = require('vue-router');
 import mapping = require('./mapping');
 import App = require('./doc-app');
 
-import components from '../components';
+import components from '../components/docs';
 import directives from '../directives';
 import mixins from '../mixins';
-import {BaseComponent} from '../components';
+import { BaseComponent } from '../components/docs';
 
 import vueLogo from './logo/vue'
 import materializeLogo from './logo/materialize';
@@ -22,12 +22,13 @@ import docTabs from './doc-tabs';
 
 require('./doc-main.scss');
 
+
 export = {
     run: function (app) {
 
         Vue.config.debug = true;
         Vue.config.async = false;
-        
+
         Vue.use(VueRouter);
         Vue.component('vue-logo', vueLogo);
         Vue.component('materialize-logo', materializeLogo);

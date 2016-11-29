@@ -38,18 +38,18 @@ const docsPages: [Route] = [
         title: 'Get started',
         component: docGetStarted
     },
-    {
-        urls: ['/badges', '/badges/:tab'],
-        link: '/badges/showcase',
-        title: 'Badges',
-        component: docsBadges
-    },
-    {
-        urls: ['/breadcrumbs', '/breadcrumbs/:tab'],
-        link: '/breadcrumbs/showcase',
-        title: 'Breadcrumbs',
-        component: docsBreadcrumbs
-    },
+    // {
+    //     urls: ['/badges', '/badges/:tab'],
+    //     link: '/badges/showcase',
+    //     title: 'Badges',
+    //     component: docsBadges
+    // },
+    // {
+    //     urls: ['/breadcrumbs', '/breadcrumbs/:tab'],
+    //     link: '/breadcrumbs/showcase',
+    //     title: 'Breadcrumbs',
+    //     component: docsBreadcrumbs
+    // },
     {
         urls: ['/buttons', '/buttons/:tab'],
         link: '/buttons/showcase',
@@ -62,30 +62,30 @@ const docsPages: [Route] = [
         title: 'Cards',
         component: docsCards
     },
-    {
-        urls: ['/chips', '/chips/:tab'],
-        link: '/chips/showcase',
-        title: 'Chips',
-        component: docsChips
-    },
-    {
-        urls: ['/collapsibles', '/collapsibles/:tab'],
-        link: '/collapsibles/showcase',
-        title: 'Collapsibles',
-        component: docsCollapsibles
-    },
-    {
-        urls: ['/collections', '/collections/:tab'],
-        link: '/collections/showcase',
-        title: 'Collections',
-        component: docsCollections
-    },
-    {
-        urls: ['/dialogs', '/dialogs/:tab'],
-        link: '/dialogs/showcase',
-        title: 'Dialogs',
-        component: docsDialogs
-    },
+    // {
+    //     urls: ['/chips', '/chips/:tab'],
+    //     link: '/chips/showcase',
+    //     title: 'Chips',
+    //     component: docsChips
+    // },
+    // {
+    //     urls: ['/collapsibles', '/collapsibles/:tab'],
+    //     link: '/collapsibles/showcase',
+    //     title: 'Collapsibles',
+    //     component: docsCollapsibles
+    // },
+    // {
+    //     urls: ['/collections', '/collections/:tab'],
+    //     link: '/collections/showcase',
+    //     title: 'Collections',
+    //     component: docsCollections
+    // },
+    // {
+    //     urls: ['/dialogs', '/dialogs/:tab'],
+    //     link: '/dialogs/showcase',
+    //     title: 'Dialogs',
+    //     component: docsDialogs
+    // },
     {
         urls: ['/dropdowns', '/dropdowns/:tab'],
         link: '/dropdowns/showcase',
@@ -98,42 +98,42 @@ const docsPages: [Route] = [
         title: 'Forms',
         component: docsForms
     },
-    {
-        urls: ['/modals', '/modals/:tab'],
-        link: '/modals/showcase',
-        title: 'Modals',
-        component: docsModals
-    },
-    {
-        urls: ['/media', '/media/:tab'],
-        link: '/media/showcase',
-        title: 'Media',
-        component: docsMedia
-    },
-    {
-        urls: ['/navbars', '/navbars/:tab'],
-        link: '/navbars/showcase',
-        title: 'Navbars',
-        component: docsNavbars
-    },
-    {
-        urls: ['/tabs/:tab'],
-        link: '/tabs/showcase',
-        title: 'Tabs',
-        component: docsTabs
-    },
-    {
-        urls: ['/pagination', '/pagination/:tab'],
-        link: '/pagination/showcase',
-        title: 'Pagination',
-        component: docPagination
-    },
-    {
-        urls: ['/preloaders', '/preloaders/:tab'],
-        link: '/preloaders/showcase',
-        title: 'Preloaders',
-        component: docsPreloaders
-    },
+    // {
+    //     urls: ['/modals', '/modals/:tab'],
+    //     link: '/modals/showcase',
+    //     title: 'Modals',
+    //     component: docsModals
+    // },
+    // {
+    //     urls: ['/media', '/media/:tab'],
+    //     link: '/media/showcase',
+    //     title: 'Media',
+    //     component: docsMedia
+    // },
+    // {
+    //     urls: ['/navbars', '/navbars/:tab'],
+    //     link: '/navbars/showcase',
+    //     title: 'Navbars',
+    //     component: docsNavbars
+    // },
+    // {
+    //     urls: ['/tabs/:tab'],
+    //     link: '/tabs/showcase',
+    //     title: 'Tabs',
+    //     component: docsTabs
+    // },
+    // {
+    //     urls: ['/pagination', '/pagination/:tab'],
+    //     link: '/pagination/showcase',
+    //     title: 'Pagination',
+    //     component: docPagination
+    // },
+    // {
+    //     urls: ['/preloaders', '/preloaders/:tab'],
+    //     link: '/preloaders/showcase',
+    //     title: 'Preloaders',
+    //     component: docsPreloaders
+    // },
     {
         urls: ['/waves'],
         link: '/waves',

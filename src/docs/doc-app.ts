@@ -3,7 +3,7 @@
 var Vue = Vue || require('vue');
 
 import pages = require('./pages');
-import components from '../components';
+import components from '../components/docs';
 import directives from '../directives';
 
 // because vue router not work with TS @Component

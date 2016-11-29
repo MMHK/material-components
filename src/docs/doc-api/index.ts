@@ -2,7 +2,7 @@ import Component from 'vue-class-component';
 
 import directives from '../../directives';
 import mixins from '../../mixins';
-import components from '../../components';
+import components from '../../components/docs';
 
 @Component({
     props: {

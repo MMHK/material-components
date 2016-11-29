@@ -1,6 +1,6 @@
 import Component from 'vue-class-component';
 
-import components from '../../../components';
+import components from '../../../components/docs';
 
 @Component({
     components,

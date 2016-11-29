@@ -1,6 +1,6 @@
 import Component from 'vue-class-component';
 
-import components from '../../components';
+import components from '../../components/docs';
 import mixins from '../../mixins';
 import directives from '../../directives';
 
@@ -17,7 +17,7 @@ import directives from '../../directives';
 })
 export default class DocSources {
     private $broadcast: any;
-    
+
     private expanded: boolean;
     private src: any;
 
@@ -31,7 +31,7 @@ export default class DocSources {
         if (Array.isArray(this.src)) {
             return this.src;
         }
-        
+
         return [this.src];
     }
 

@@ -692,17 +692,15 @@
   top: 0 !important;
   left: 0 !important; }
 
-/*.md-select.in-mobile {
-  .select-wrapper {
-    border-bottom: 1px solid #9e9e9e;
-    overflow-x: hidden;
-  }
-  select {
-    display: inherit;
-    width: 110%;
-    background: transparent;
-  }
-}*/
+.md-select.in-mobile .select-wrapper {
+  border-bottom: 1px solid #9e9e9e;
+  overflow-x: hidden; }
+
+.md-select.in-mobile select {
+  display: inherit;
+  width: 110%;
+  background: transparent; }
+
 .md-textarea textarea.materialize-textarea {
   overflow: hidden;
   margin-top: 1.6rem;

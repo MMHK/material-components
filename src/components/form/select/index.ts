@@ -22,7 +22,7 @@ var Vue: any = Vue || require('vue');
         }
     },
     events: {
-        'select::select': function(value) {
+        'select::select': function (value) {
             if (Array.isArray(this.value)) {
                 this.value.push(value);
             }
@@ -34,7 +34,7 @@ var Vue: any = Vue || require('vue');
             return true;
 
         },
-        'select::unselect': function(value) {
+        'select::unselect': function (value) {
             if (Array.isArray(this.value)) {
                 this.value.$remove(value);
             }
@@ -81,24 +81,21 @@ export default class SelectField {
     }
 
     compiled() {
-        var options = this.$getAllChildren().filter((c: any) => {return c instanceof SelectOption});
+        var options = this.$getAllChildren().filter((c: any) => { return c instanceof SelectOption });
         for (var i = 0; i < options.length; i++) {
             var option = options[i];
             var opt: any = this.createOption(option);
             Vue.set(this.options, opt.value, opt);
         }
-        console.log(options);
-        console.log(this.$getAllChildren());
     }
 
     ready() {
-       this.refreshDropdownOptions()
+        this.refreshDropdownOptions()
     }
 
     createOption(option: any) {
         var content = option.content.textContent;
-        if(option._scope)
-        {
+        if (option._scope) {
             content = option._scope.$interpolate(content)
         }
         var value = option.value;

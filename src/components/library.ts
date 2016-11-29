@@ -3,7 +3,7 @@ import directives from '../directives';
 import mixins from '../mixins';
 
 export = {
-    install (Vue) {
+    install(Vue) {
         for (var componentName in components) {
             Vue.component(componentName, components[componentName]);
         }
