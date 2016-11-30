@@ -37,3 +37,9 @@ Vue.use(VueMaterialComponents)
 * **0.3.0** md-btn component
 
 * 根据MM的实际使用情况，裁剪了部分功能并。
+
+* 为select 组件增加mobile模式，在mobile端渲染的时候会使用原生select代理模拟select渲染。
+
+* 为select 组件增加自定义 icon slot
+
+* 修复select 组件在dist包下，无法生效option的问题。
