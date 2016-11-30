@@ -7608,6 +7608,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			{
 				"name": "label",
 				"description": "Select label"
+			},
+			{
+				"name": "arrow",
+				"description": "custom caret element"
 			}
 		],
 		"events": [
