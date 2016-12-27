@@ -81,6 +81,11 @@ export default class SelectField {
     }
 
     compiled() {
+        this.refreshContent()
+    }
+
+    refreshContent() {
+        this.options = {}
         var options = this.$getAllChildren().filter((c: any) => { return c instanceof SelectOption });
         for (var i = 0; i < options.length; i++) {
             var option = options[i];
