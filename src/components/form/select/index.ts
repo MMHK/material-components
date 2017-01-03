@@ -46,7 +46,10 @@ var Vue: any = Vue || require('vue');
         }
     },
     watch: {
-        value: function () {
+        value: function (n, o) {
+            if (n != o) {
+                this.$emit("change");
+            }
             this.$nextTick(this.refreshDropdownOptions)
         }
     },
