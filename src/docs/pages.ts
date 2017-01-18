@@ -68,12 +68,12 @@ const docsPages: [Route] = [
     //     title: 'Chips',
     //     component: docsChips
     // },
-    // {
-    //     urls: ['/collapsibles', '/collapsibles/:tab'],
-    //     link: '/collapsibles/showcase',
-    //     title: 'Collapsibles',
-    //     component: docsCollapsibles
-    // },
+    {
+        urls: ['/collapsibles', '/collapsibles/:tab'],
+        link: '/collapsibles/showcase',
+        title: 'Collapsibles',
+        component: docsCollapsibles
+    },
     // {
     //     urls: ['/collections', '/collections/:tab'],
     //     link: '/collections/showcase',

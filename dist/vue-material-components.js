@@ -90,25 +90,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	var checkbox_group_1 = __webpack_require__(29);
 	// import mdChip from './chip';
 	// import mdCircularPreloader from './circular-preloader';
-	// import mdCollapsible from './collapsible';
-	// import mdCollapsibleItem from './collapsible-item';
+	var collapsible_1 = __webpack_require__(31);
+	var collapsible_item_1 = __webpack_require__(33);
 	// import mdCollection from './collection';
 	// import mdCollectionList from './collection-list';
 	// import mdCollectionItem from './collection-item';
 	// import mdCollectionListItem from './collection-list-item';
-	var dropdown_1 = __webpack_require__(31);
-	var dropdown_item_1 = __webpack_require__(33);
-	var dropdown_list_1 = __webpack_require__(32);
-	var event_wrapper_1 = __webpack_require__(38);
+	var dropdown_1 = __webpack_require__(35);
+	var dropdown_item_1 = __webpack_require__(37);
+	var dropdown_list_1 = __webpack_require__(36);
+	var event_wrapper_1 = __webpack_require__(42);
 	// import mdFab from './fab';
 	// import mdFileInput from './form/file-input';
-	var input_1 = __webpack_require__(40);
-	var optgroup_1 = __webpack_require__(42);
-	var option_1 = __webpack_require__(44);
-	var radio_1 = __webpack_require__(46);
-	var radio_group_1 = __webpack_require__(48);
-	var select_1 = __webpack_require__(50);
-	var textarea_1 = __webpack_require__(52);
+	var input_1 = __webpack_require__(44);
+	var optgroup_1 = __webpack_require__(46);
+	var option_1 = __webpack_require__(48);
+	var radio_1 = __webpack_require__(50);
+	var radio_group_1 = __webpack_require__(52);
+	var select_1 = __webpack_require__(54);
+	var textarea_1 = __webpack_require__(56);
 	var icon_1 = __webpack_require__(20);
 	// import mdImage from './image';
 	// import mdLeanOverlay from './lean-overlay';
@@ -124,7 +124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// import mdSwitch from './form/swich';
 	// import mdTab from './tab';
 	// import mdTabs from './tabs';
-	__webpack_require__(54);
+	__webpack_require__(58);
 	var VueMaterializeComponents = {
 	    // mdBadge,
 	    mdButton: button_1.default,
@@ -135,8 +135,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    mdCheckboxGroup: checkbox_group_1.default,
 	    // mdChip,
 	    // mdCircularPreloader,
-	    // mdCollapsible,
-	    // mdCollapsibleItem,
+	    mdCollapsible: collapsible_1.default,
+	    mdCollapsibleItem: collapsible_item_1.default,
 	    // mdCollection,
 	    // mdCollectionList,
 	    // mdCollectionItem,
@@ -1937,9 +1937,302 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
 	var vue_class_component_1 = __webpack_require__(19);
+	var Collapsible = (function () {
+	    function Collapsible() {
+	    }
+	    Collapsible.prototype.ready = function () {
+	        var _this = this;
+	        if (typeof this.opened != "undefined") {
+	            if (this.expendable) {
+	                this.opened
+	                    .forEach(function (id) { return _this.$broadcast('collapsible::open', id, _this.expendable); });
+	            }
+	            else {
+	                this.$broadcast('collapsible::open', this.opened, this.expendable);
+	            }
+	        }
+	    };
+	    Collapsible.prototype.open = function (id) {
+	        if (typeof this.opened != "undefined") {
+	            if (this.expendable) {
+	                this.opened.push(id);
+	            }
+	            else {
+	                this.opened = id;
+	            }
+	        }
+	        // propagate event to children
+	        this.$broadcast('collapsible::open', id, this.expendable);
+	        return true;
+	    };
+	    Collapsible.prototype.close = function (id) {
+	        if (typeof this.opened != "undefined") {
+	            if (this.expendable) {
+	                this.opened.$remove(id);
+	            }
+	            else {
+	                this.opened = '';
+	            }
+	        }
+	        // propagate event to children
+	        this.$broadcast('collapsible::close', id);
+	        return true;
+	    };
+	    Collapsible.prototype.openedChanged = function (value) {
+	        var _this = this;
+	        if (this.expendable) {
+	            var ids = this.$children
+	                .filter(function (component) { return component.$options.name == 'CollapsibleItem'; })
+	                .map(function (item) { return item.id; });
+	            // close
+	            ids
+	                .filter(function (val) { return value.indexOf(val) < 0; })
+	                .forEach(function (id) { return _this.$broadcast('collapsible::close', id); });
+	            // open
+	            this.opened = value;
+	            this.opened
+	                .forEach(function (id) { return _this.$broadcast('collapsible::open', id, _this.expendable); });
+	        }
+	        else {
+	            this.$broadcast('collapsible::open', value, this.expendable);
+	        }
+	    };
+	    Collapsible = __decorate([
+	        vue_class_component_1.default({
+	            props: {
+	                opened: {
+	                    required: false,
+	                },
+	                popout: {
+	                    type: Boolean,
+	                    required: false,
+	                    'default': false,
+	                    twoWay: false
+	                },
+	                expendable: {
+	                    type: Boolean,
+	                    required: false,
+	                    'default': false,
+	                    twoWay: false
+	                }
+	            },
+	            watch: {
+	                expendable: function () {
+	                    console.log('Error: can not change expandable');
+	                },
+	                opened: {
+	                    deep: true,
+	                    handler: function (newValue, oldValue) {
+	                        this.openedChanged(newValue, oldValue);
+	                    }
+	                }
+	            },
+	            events: {
+	                'collapsible::open': function (id) {
+	                    return this.open(id);
+	                },
+	                'collapsible::close': function (id) {
+	                    return this.close(id);
+	                }
+	            },
+	            template: __webpack_require__(32)
+	        })
+	    ], Collapsible);
+	    return Collapsible;
+	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Collapsible;
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports) {
+
+	module.exports = "<ul class=\"collapsible\" :class=\"{popout: popout}\">\r\n    <slot></slot>\r\n</ul>";
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var vue_class_component_1 = __webpack_require__(19);
+	var events_1 = __webpack_require__(11);
+	var Velocity = __webpack_require__(15);
+	var CollapsibleItem = (function () {
+	    function CollapsibleItem() {
+	    }
+	    CollapsibleItem.prototype.data = function () {
+	        return {
+	            active: false
+	        };
+	    };
+	    CollapsibleItem.prototype.compiled = function () {
+	        this.active = this.expanded;
+	    };
+	    Object.defineProperty(CollapsibleItem.prototype, "id", {
+	        get: function () {
+	            if (this.name) {
+	                return this.name;
+	            }
+	            return this._uid;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(CollapsibleItem.prototype, "computedStyle", {
+	        get: function () {
+	            if (this.active) {
+	                return {
+	                    display: 'block'
+	                };
+	            }
+	            return null;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    CollapsibleItem.prototype.openThis = function (immediately) {
+	        var _this = this;
+	        if (immediately === void 0) { immediately = false; }
+	        if (!this.active) {
+	            this.active = true;
+	            if (immediately) {
+	                this.$els.body.style.height = '';
+	            }
+	            else {
+	                this.$nextTick(function () {
+	                    Velocity(_this.$els.body, 'slideDown', _this._slideConfig);
+	                });
+	            }
+	        }
+	    };
+	    Object.defineProperty(CollapsibleItem.prototype, "_slideConfig", {
+	        get: function () {
+	            var _this = this;
+	            return {
+	                duration: 350,
+	                easing: "easeOutQuart",
+	                queue: false,
+	                complete: function () {
+	                    _this.$els.body.style.height = '';
+	                }
+	            };
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    CollapsibleItem.prototype.open = function (id, expendable) {
+	        if (id === null || typeof id == "undefined") {
+	            this.openThis(true); // bulk open
+	        }
+	        else {
+	            if (id == this.id) {
+	                this.openThis();
+	            }
+	            else {
+	                if (!expendable) {
+	                    this.closeThis();
+	                }
+	            }
+	        }
+	    };
+	    CollapsibleItem.prototype.closeThis = function (immediately) {
+	        var _this = this;
+	        if (immediately === void 0) { immediately = false; }
+	        if (this.active) {
+	            this.active = false;
+	            if (immediately) {
+	                this.$els.body.style.height = '';
+	            }
+	            else {
+	                this.$nextTick(function () {
+	                    _this.$els.body.style.display = 'block';
+	                    Velocity(_this.$els.body, 'slideUp', _this._slideConfig);
+	                });
+	            }
+	        }
+	    };
+	    CollapsibleItem.prototype.close = function (id) {
+	        if (id === null || typeof id == "undefined") {
+	            this.closeThis(true); // bulk close
+	        }
+	        else {
+	            if (id == this.id) {
+	                this.closeThis();
+	            }
+	        }
+	    };
+	    CollapsibleItem.prototype.toggle = function () {
+	        if (this.active) {
+	            this.$dispatch('collapsible::close', this.id);
+	        }
+	        else {
+	            this.$dispatch('collapsible::open', this.id);
+	        }
+	    };
+	    CollapsibleItem = __decorate([
+	        vue_class_component_1.default({
+	            props: {
+	                name: {
+	                    type: String,
+	                    required: false,
+	                    'default': false,
+	                    twoWay: false
+	                },
+	                expanded: {
+	                    type: Boolean,
+	                    required: false,
+	                    'default': false,
+	                    twoWay: false
+	                }
+	            },
+	            mixins: [
+	                events_1.default
+	            ],
+	            events: {
+	                'collapsible::open': function (id, expendable) {
+	                    this.open(id, expendable);
+	                },
+	                'collapsible::close': function (id) {
+	                    this.close(id);
+	                }
+	            },
+	            template: __webpack_require__(34)
+	        })
+	    ], CollapsibleItem);
+	    return CollapsibleItem;
+	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = CollapsibleItem;
+
+
+/***/ },
+/* 34 */
+/***/ function(module, exports) {
+
+	module.exports = "<li :class=\"{active: active}\">\r\n    <slot name=\"content\">\r\n        <div @click=\"toggle\" class=\"collapsible-header\">\r\n            <slot name=\"header\"></slot>\r\n        </div>\r\n        <div v-el:body class=\"collapsible-body\" :style=\"computedStyle\">\r\n            <slot name=\"body\"></slot>\r\n        </div>\r\n    </slot>\r\n</li>\r\n";
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var vue_class_component_1 = __webpack_require__(19);
 	var button_1 = __webpack_require__(18);
-	var dropdown_list_1 = __webpack_require__(32);
-	var dropdown_item_1 = __webpack_require__(33);
+	var dropdown_list_1 = __webpack_require__(36);
+	var dropdown_item_1 = __webpack_require__(37);
 	var click_away_1 = __webpack_require__(6);
 	var Dropdown = (function () {
 	    function Dropdown() {
@@ -1987,7 +2280,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.$broadcast('dropdown-list::open', e);
 	                }
 	            },
-	            template: __webpack_require__(37)
+	            template: __webpack_require__(41)
 	        })
 	    ], Dropdown);
 	    return Dropdown;
@@ -1997,7 +2290,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 32 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2009,8 +2302,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	var vue_class_component_1 = __webpack_require__(19);
 	var button_1 = __webpack_require__(18);
-	var dropdown_item_1 = __webpack_require__(33);
-	var utils_1 = __webpack_require__(35);
+	var dropdown_item_1 = __webpack_require__(37);
+	var utils_1 = __webpack_require__(39);
 	var DropdownList = (function () {
 	    function DropdownList() {
 	    }
@@ -2066,7 +2359,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.open(e);
 	                }
 	            },
-	            template: __webpack_require__(36)
+	            template: __webpack_require__(40)
 	        })
 	    ], DropdownList);
 	    return DropdownList;
@@ -2076,7 +2369,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 33 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2122,7 +2415,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    twoWay: false
 	                },
 	            },
-	            template: __webpack_require__(34)
+	            template: __webpack_require__(38)
 	        })
 	    ], DropdownItem);
 	    return DropdownItem;
@@ -2132,13 +2425,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 34 */
+/* 38 */
 /***/ function(module, exports) {
 
 	module.exports = "<li @click.prevent=\"select\">\r\n    <a href=\"javascript:void(0)\">\r\n        <slot></slot>\r\n    </a>\r\n</li>";
 
 /***/ },
-/* 35 */
+/* 39 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2193,19 +2486,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 36 */
+/* 40 */
 /***/ function(module, exports) {
 
 	module.exports = "<ul class=\"dropdown-content\"\r\n    :class=\"{active: active}\" :style=\"style\">\r\n    <slot></slot>\r\n</ul>\r\n";
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports) {
 
 	module.exports = "<div v-on-click-away=\"close\">\r\n    <md-dropdown-list>\r\n        <slot></slot>\r\n    </md-dropdown-list>\r\n\r\n    <span @click=\"open\">\r\n        <slot name=\"button\">\r\n            <md-button href=\"javascript:void(0)\"\r\n                 :class=\"{active: active}\"\r\n                 class=\"dropdown-button\">\r\n                {{title}}\r\n                <i class=\"mdi-navigation-arrow-drop-down right\"></i>\r\n            </md-button>\r\n        </slot>\r\n    </span>\r\n</div>\r\n";
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2236,7 +2529,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    required: true
 	                }
 	            },
-	            template: __webpack_require__(39)
+	            template: __webpack_require__(43)
 	        })
 	    ], EventWrapper);
 	    return EventWrapper;
@@ -2246,13 +2539,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 39 */
+/* 43 */
 /***/ function(module, exports) {
 
 	module.exports = "<slot></slot>";
 
 /***/ },
-/* 40 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2389,7 +2682,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mixins: [
 	                input_1.default
 	            ],
-	            template: __webpack_require__(41)
+	            template: __webpack_require__(45)
 	        })
 	    ], InputField);
 	    return InputField;
@@ -2399,13 +2692,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 41 */
+/* 45 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"input-field\">\r\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\r\n        <slot name=\"icon-name\"></slot>\r\n    </i>\r\n    <input v-if=\"disabled\"\r\n           v-model=\"value\"\r\n           :name=\"name\"\r\n           :placeholder=\"placeholder\" :id=\"id\"\r\n           :type=\"type\"\r\n           :lazy=\"lazy\"\r\n           v-bind-boolean:number=\"number\"\r\n           :debounce=\"debounce\"\r\n           disabled=\"disabled\"/>\r\n    <input v-else\r\n           v-model=\"value\"\r\n           :name=\"name\"\r\n           :placeholder=\"placeholder\" :id=\"id\"\r\n           :type=\"type\"\r\n           :lazy=\"lazy\"\r\n           v-bind-boolean:number=\"number\"\r\n           :debounce=\"debounce\"\r\n           @focus=\"activateField\"\r\n           @blur=\"deactivateField\"\r\n           class=\"validate\"\r\n           :class=\"validationClass\"/>\r\n    <label v-if=\"hasSlot()\" :for=\"id\" :class=\"labelClasses\"\r\n           :data-error=\"errorMsg\" :data-success=\"successMsg\">\r\n        <slot></slot>\r\n    </label>\r\n</div>";
 
 /***/ },
-/* 42 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2428,7 +2721,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    'default': false
 	                }
 	            },
-	            template: __webpack_require__(43)
+	            template: __webpack_require__(47)
 	        })
 	    ], Optgroup);
 	    return Optgroup;
@@ -2438,13 +2731,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 43 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = "<li class=\"optgroup\">\r\n    <span>\r\n        {{label}}\r\n    </span>\r\n</li>\r\n<slot></slot>";
 
 /***/ },
-/* 44 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2564,7 +2857,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mixins: [
 	                input_1.default
 	            ],
-	            template: __webpack_require__(45)
+	            template: __webpack_require__(49)
 	        })
 	    ], SelectOption);
 	    return SelectOption;
@@ -2574,13 +2867,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 45 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = "<li @click.prevent=\"toggle\" :class=\"computedClasses\">\r\n    <span>\r\n        <input v-show=\"multiple\" v-model=\"active\"\r\n               v-bind-boolean:disabled=\"disabled\"\r\n               type=\"checkbox\">\r\n        <label v-if=\"multiple\"></label>\r\n        <slot></slot>\r\n    </span>\r\n</li>";
 
 /***/ },
-/* 46 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2639,7 +2932,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mixins: [
 	                input_1.default
 	            ],
-	            template: __webpack_require__(47)
+	            template: __webpack_require__(51)
 	        })
 	    ], Radio);
 	    return Radio;
@@ -2649,13 +2942,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 47 */
+/* 51 */
 /***/ function(module, exports) {
 
 	module.exports = "<span class=\"md-radio\">\r\n    <input v-model=\"value\"\r\n           :value=\"radioValue\"\r\n           v-bind-boolean:disabled=\"disabled\"\r\n           v-bind-boolean:checked=\"checked\"\r\n           :id=\"id\" :name=\"group\"\r\n           type=\"radio\"/>\r\n    <label v-if=\"hasSlot()\" :for=\"id\">\r\n        <slot></slot>\r\n    </label>\r\n</span>";
 
 /***/ },
-/* 48 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2677,7 +2970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    required: true
 	                }
 	            },
-	            template: __webpack_require__(49)
+	            template: __webpack_require__(53)
 	        })
 	    ], RadioGroup);
 	    return RadioGroup;
@@ -2687,13 +2980,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 49 */
+/* 53 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"input-field\">\r\n    <slot></slot>\r\n</div>";
 
 /***/ },
-/* 50 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2704,8 +2997,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return c > 3 && r && Object.defineProperty(target, key, r), r;
 	};
 	var vue_class_component_1 = __webpack_require__(19);
-	var dropdown_list_1 = __webpack_require__(32);
-	var option_1 = __webpack_require__(44);
+	var dropdown_list_1 = __webpack_require__(36);
+	var option_1 = __webpack_require__(48);
 	var input_1 = __webpack_require__(12);
 	var click_away_1 = __webpack_require__(6);
 	var bind_boolean_1 = __webpack_require__(4);
@@ -2887,7 +3180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mixins: [
 	                input_1.default
 	            ],
-	            template: __webpack_require__(51)
+	            template: __webpack_require__(55)
 	        })
 	    ], SelectField);
 	    return SelectField;
@@ -2897,13 +3190,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 51 */
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"md-select input-field {{inMobileSingeView ? 'in-mobile' : ''}}\" v-click-away=\"close\">\r\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\r\n        <slot name=\"icon-name\"></slot>\r\n    </i>\r\n    <div class=\"select-wrapper\">\r\n        <span v-if=\"!hasSlot('arrow')\" class=\"caret\">▼</span>\r\n        <span v-if=\"hasSlot('arrow')\" class=\"caret\">\r\n            <slot name=\"arrow\"></slot>\r\n        </span>\r\n        <input v-if=\"!inMobileSingeView\" @click=\"open\" readonly=\"readonly\" :value=\"valueContent\" :name=\"name\"\r\n               type=\"text\" class=\"select-dropdown\">\r\n\r\n        <md-dropdown-list v-show=\"!inMobileSingeView\" :active=\"active\" class=\"select-dropdown\">\r\n            <slot></slot>\r\n        </md-dropdown-list>\r\n\r\n        <select v-el:field\r\n                v-model=\"value\"\r\n                v-bind-boolean:multiple=\"multiple\"\r\n                :placeholder=\"placeholder\" :id=\"id\"\r\n                :type=\"type\">\r\n            <option v-for=\"opt in options\" :value=\"opt.value\" v-bind-boolean:disabled=\"opt.disabled\">{{opt.content}}</option>\r\n        </select>\r\n    </div>\r\n    <label v-if=\"hasSlot('label')\" :for=\"id\" :class=\"labelClasses\">\r\n        <slot name=\"label\"></slot>\r\n    </label>\r\n</div>";
 
 /***/ },
-/* 52 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3027,7 +3320,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mixins: [
 	                input_1.default
 	            ],
-	            template: __webpack_require__(53)
+	            template: __webpack_require__(57)
 	        })
 	    ], TextArea);
 	    return TextArea;
@@ -3037,13 +3330,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 53 */
+/* 57 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"md-textarea input-field\">\r\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\r\n        <slot name=\"icon-name\"></slot>\r\n    </i>\r\n    <textarea v-if=\"disabled\"\r\n              v-el:field\r\n              v-model=\"value\"\r\n              :name=\"name\"\r\n              :id=\"id\" class=\"materialize-textarea\"\r\n              :lazy=\"lazy\" :number=\"number\" :debounce=\"debounce\"\r\n              disabled=\"disabled\">\r\n    </textarea>\r\n    <textarea v-else\r\n              v-el:field\r\n              v-model=\"value\"\r\n              :name=\"name\"\r\n              :id=\"id\"\r\n              :lazy=\"lazy\" :number=\"number\" :debounce=\"debounce\"\r\n              @focus=\"activateField\"\r\n              @blur=\"deactivateField\"\r\n              @keyup=\"resize\"\r\n              class=\"materialize-textarea\">\r\n    </textarea>\r\n    <label v-if=\"hasSlot()\" :for=\"id\" :class=\"labelClasses\">\r\n        <slot></slot>\r\n    </label>\r\n</div>";
 
 /***/ },
-/* 54 */
+/* 58 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

@@ -13,8 +13,8 @@ import mdCheckbox from './form/checkbox';
 import mdCheckboxGroup from './form/checkbox-group';
 // import mdChip from './chip';
 // import mdCircularPreloader from './circular-preloader';
-// import mdCollapsible from './collapsible';
-// import mdCollapsibleItem from './collapsible-item';
+import mdCollapsible from './collapsible';
+import mdCollapsibleItem from './collapsible-item';
 // import mdCollection from './collection';
 // import mdCollectionList from './collection-list';
 // import mdCollectionItem from './collection-item';
@@ -60,8 +60,8 @@ const VueMaterializeComponents: any = {
     mdCheckboxGroup,
     // mdChip,
     // mdCircularPreloader,
-    // mdCollapsible,
-    // mdCollapsibleItem,
+    mdCollapsible,
+    mdCollapsibleItem,
     // mdCollection,
     // mdCollectionList,
     // mdCollectionItem,
