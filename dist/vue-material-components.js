@@ -2674,6 +2674,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    required: false,
 	                    'default': null,
 	                    twoWay: false
+	                },
+	                maxlength: {
+	                    type: Number,
+	                    required: false,
+	                    'default': 0,
+	                    twoWay: false
 	                }
 	            },
 	            directives: {
@@ -2695,7 +2701,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 45 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"input-field\">\r\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\r\n        <slot name=\"icon-name\"></slot>\r\n    </i>\r\n    <input v-if=\"disabled\"\r\n           v-model=\"value\"\r\n           :name=\"name\"\r\n           :placeholder=\"placeholder\" :id=\"id\"\r\n           :type=\"type\"\r\n           :lazy=\"lazy\"\r\n           v-bind-boolean:number=\"number\"\r\n           :debounce=\"debounce\"\r\n           disabled=\"disabled\"/>\r\n    <input v-else\r\n           v-model=\"value\"\r\n           :name=\"name\"\r\n           :placeholder=\"placeholder\" :id=\"id\"\r\n           :type=\"type\"\r\n           :lazy=\"lazy\"\r\n           v-bind-boolean:number=\"number\"\r\n           :debounce=\"debounce\"\r\n           @focus=\"activateField\"\r\n           @blur=\"deactivateField\"\r\n           class=\"validate\"\r\n           :class=\"validationClass\"/>\r\n    <label v-if=\"hasSlot()\" :for=\"id\" :class=\"labelClasses\"\r\n           :data-error=\"errorMsg\" :data-success=\"successMsg\">\r\n        <slot></slot>\r\n    </label>\r\n</div>";
+	module.exports = "<div class=\"input-field\">\r\n    <i v-if=\"hasSlot('icon-name')\" class=\"material-icons prefix\">\r\n        <slot name=\"icon-name\"></slot>\r\n    </i>\r\n    <input v-if=\"disabled\" v-model=\"value\" :name=\"name\" :placeholder=\"placeholder\" :id=\"id\" :type=\"type\" :lazy=\"lazy\" v-bind-boolean:number=\"number\"\r\n        :debounce=\"debounce\" disabled=\"disabled\" />\r\n    <input v-else v-model=\"value\" :name=\"name\" :placeholder=\"placeholder\" :id=\"id\" :type=\"type\" :lazy=\"lazy\" :maxlength=\"maxlength\"\r\n        v-bind-boolean:number=\"number\" :debounce=\"debounce\" @focus=\"activateField\" @blur=\"deactivateField\" class=\"validate\" :class=\"validationClass\"\r\n    />\r\n    <label v-if=\"hasSlot()\" :for=\"id\" :class=\"labelClasses\" :data-error=\"errorMsg\" :data-success=\"successMsg\">\r\n        <slot></slot>\r\n    </label>\r\n</div>";
 
 /***/ },
 /* 46 */
@@ -3023,6 +3029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var opt = this.createOption(option);
 	            Vue.set(this.options, opt.value, opt);
 	        }
+	        console.log(options);
 	    };
 	    SelectField.prototype.ready = function () {
 	        this.refreshDropdownOptions();

@@ -7,11 +7,11 @@ export default {
     },
 
     methods: {
-        $getAllChildren: function() {
+        $getAllChildren: function () {
             return this._getChildren(this)
         },
 
-        _getChildren: function(component) {
+        _getChildren: function (component) {
             var children = [];
             children = children.concat(component.$children);
             for (var i = 0; i < component.$children.length; i++) {
@@ -19,5 +19,6 @@ export default {
             }
             return children;
         }
+
     }
 }

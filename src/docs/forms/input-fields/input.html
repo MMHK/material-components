@@ -2,11 +2,11 @@
     <form class="col s12">
         <div class="row demo">
             <md-input name="first_name" :value.sync="firstName" placeholder="Placeholder" :success-msg="successMsg" :error-msg="errorMsg"
-                      :valid="bool(firstNameValid)" class="col s4">
+                :valid="bool(firstNameValid)" class="col s4">
                 First Name
             </md-input>
-            <md-input name="last_name" :value.sync="lastName" :success-msg="successMsg" :error-msg="errorMsg"
-                      :valid="bool(lastNameValid)" class="col s4">
+            <md-input name="last_name" :value.sync="lastName" :maxlength="5" :success-msg="successMsg" :error-msg="errorMsg" :valid="bool(lastNameValid)"
+                class="col s4">
                 Last name
             </md-input>
             <md-input :value.sync="age" type="number" :number="true" class="col s4">

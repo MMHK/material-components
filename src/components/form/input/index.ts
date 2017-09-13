@@ -68,6 +68,12 @@ import bindBoolean from '../../../directives/bind-boolean';
             required: false,
             'default': null,
             twoWay: false
+        },
+        maxlength: {
+            type: Number,
+            required: false,
+            'default': 0,
+            twoWay: false
         }
     },
     directives: {
@@ -111,14 +117,14 @@ export default class InputField {
         }
     }
 
-   get labelClasses() {
-       return {
-           active: this.placeholder || this.active || this.hasValue, // || this.valid != null,
-           disabled: this.disabled
-       }
-   }
+    get labelClasses() {
+        return {
+            active: this.placeholder || this.active || this.hasValue, // || this.valid != null,
+            disabled: this.disabled
+        }
+    }
 
-    get validationClass(){
+    get validationClass() {
         return {
             invalid: this.errorMsg && this.valid == false,
             valid: this.successMsg && this.valid == true
@@ -128,11 +134,11 @@ export default class InputField {
     hasSlot(name = 'default') {
         return name in this._slotContents;
     }
-    
+
     activateField() {
         this.active = true;
     }
-    
+
     deactivateField() {
         this.active = false;
     }

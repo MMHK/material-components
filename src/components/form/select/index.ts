@@ -95,6 +95,7 @@ export default class SelectField {
             var opt: any = this.createOption(option);
             Vue.set(this.options, opt.value, opt);
         }
+        console.log(options);
     }
 
     ready() {
